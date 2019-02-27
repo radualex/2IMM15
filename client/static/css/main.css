@@ -1,0 +1,31 @@
+.jumbotron
+{
+    padding-bottom: 32px;
+    padding-top: 88px;
+}
+
+.no-shadow
+{
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.vote-section > .btn-success
+{
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+
+.vote-section > .btn-danger
+{
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.vote-section > button
+{
+    width: 100%;
+    height: 50%;
+}
