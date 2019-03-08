@@ -8,19 +8,27 @@
 #       to find the correct place to provide that key..
 
 from googleapiclient.discovery import build
+from config import configYoutube
 
 # Set DEVELOPER_KEY to the API key value from the APIs & auth > Registered apps
 # tab of
 #   https://cloud.google.com/console
 # Please ensure that you have enabled the YouTube Data API for your project.
-DEVELOPER_KEY = 'AIzaSyCNQN3P1pGEMMJYcqBptyjNtMoTXZK0hOk'
-YOUTUBE_API_SERVICE_NAME = 'youtube'
-YOUTUBE_API_VERSION = 'v3'
+DEVELOPER_KEY = None
+YOUTUBE_API_SERVICE_NAME = None
+YOUTUBE_API_VERSION = None
 
 
 def youtube_search(q="computer science tutorial", max_results=50,
                    order="relevance", token=None,
                    location="38.61048,-121.44730", location_radius="1000km"):
+
+    params = configYoutube()
+
+    DEVELOPER_KEY = params['developerkey']
+    YOUTUBE_API_SERVICE_NAME = params["youtube_api_service_name"]
+    YOUTUBE_API_VERSION = params["youtube_api_version"]
+
     youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
                     developerKey=DEVELOPER_KEY)
 
@@ -101,6 +109,8 @@ def youtube_search(q="computer science tutorial", max_results=50,
                   'description': description,
                   'publishedAt': publishedAt,
                   'duration': duration,
+                  'channelId': channelId,
+                  'channelTitle': channelTitle,
                   'viewCount': statisticsViewCount,
                   'likeCount': statisticsLikeCount,
                   'dislikeCount': statisticsDislikeCount,

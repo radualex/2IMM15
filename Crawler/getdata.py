@@ -2,6 +2,25 @@ import argparse
 
 from geolocation_search_import import youtube_search
 from googleapiclient.errors import HttpError
+from database import insert_video_table_data, insert_thumbnail_table_data, insert_statistics_table_data, insert_tag_table_data, get_count_video_table, truncate_all_tables
+
+
+def call_youtube(args):
+    dict = youtube_search(args.q, args.max_results,
+                          args.order, args.token,
+                          args.location, args.location_radius)
+
+    return dict
+
+
+def insert_all_data(args):
+    dict = call_youtube(args)
+    insert_video_table_data(dict)
+    insert_statistics_table_data(dict)
+    insert_thumbnail_table_data(dict)
+    insert_tag_table_data(dict)
+
+    return dict
 
 
 if __name__ == '__main__':
@@ -15,19 +34,19 @@ if __name__ == '__main__':
     parser.add_argument('--max-results', help='Max results', default=50)
     parser.add_argument('--order', help='Order', default='relevance')
     parser.add_argument('--token', help='Page token', default=None)
+    parser.add_argument(
+        '--d', help='Truncate all tables', action='store_true')
     args = parser.parse_args()
 
     try:
-        dict = youtube_search(args.q, args.max_results, args.order,
-                              args.token, args.location, args.location_radius)
+        if(args.d):
+            truncate_all_tables()
+        else:
+            dict = insert_all_data(args)
 
-        print('Videos:\n', '\n'.join(dict['id']), '\n')
+            while 'nextPageToken' in dict and get_count_video_table() < 200:
+                args.token = dict["nextPageToken"]
+                dict = insert_all_data(args)
 
-        # if 'nextPageToken' in dict:
-        #     dict = youtube_search(token=dict['nextPageToken'])
-        #     print('Videos:\n', '\n'.join(dict['videos']), '\n')
-
-        # modify the script to get the data according to our schema and return in dict
-        # add to database here. add a while for nextPageToken
     except HttpError as e:
         print('An HTTP error %d occurred:\n%s' % (e.resp.status, e.content))
