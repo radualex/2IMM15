@@ -1,4 +1,5 @@
 import psycopg2
+import string
 from config import config
 
 
@@ -196,6 +197,55 @@ def get_count_video_table():
         disconnect(conn)
 
         return record[0]
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+
+
+# Indexing
+def get_videos():
+    try:
+        conn = connect()
+        cur = conn.cursor()
+
+        query = """SELECT id FROM video"""
+
+        cur.execute(query)
+        records = cur.fetchall()
+
+        cur.close()
+        disconnect(conn)
+
+        return records
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+
+
+def get_data_for_indexing(videoId):
+    try:
+        tags = set()
+        conn = connect()
+        cur = conn.cursor()
+
+        query = """SELECT title,description FROM video WHERE id = %s"""
+        cur.execute(query, (videoId, ))
+        record = cur.fetchone()
+
+        query = """SELECT value FROM tag WHERE videoid=%s"""
+        cur.execute(query, (videoId, ))
+        records_tags = cur.fetchall()
+
+        for r in records_tags:
+            tags.update(r)
+
+        records_tags = ', '.join(tags) + '.'
+
+        dictionary = {
+            'title': record[0], 'description': record[1], 'tags': records_tags}
+
+        cur.close()
+        disconnect(conn)
+
+        return dictionary
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
 
