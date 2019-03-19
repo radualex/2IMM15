@@ -1,5 +1,4 @@
 import psycopg2
-import string
 from config import config
 
 
@@ -156,7 +155,7 @@ def insert_tag_table_data(dict):
                     cur.execute(query, row)
                     conn.commit()
                     count = cur.rowcount
-                    print(count, "Record inserted successfully into thumbnail tag")
+                    print(count, "Record inserted successfully into tag table")
             i += 1
 
         cur.close()
@@ -246,6 +245,33 @@ def get_data_for_indexing(videoId):
         disconnect(conn)
 
         return dictionary
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+
+
+def populate_indexing_tables(dictionary):
+    try:
+        conn = connect()
+        cur = conn.cursor()
+
+        for key in dictionary:
+            freq = len(dictionary[key])
+
+            query = """INSERT INTO word(word,frequency) VALUES (%s,%s) RETURNING wordid"""
+            cur.execute(query, (key, freq))
+            conn.commit()
+            lastId = cur.fetchone()[0]
+            print("Record inserted successfully into word table")
+
+            for item in dictionary[key]:
+                query = """INSERT INTO posting(wordid,videoid) VALUES (%s,%s)"""
+                cur.execute(query, (lastId, item))
+                conn.commit()
+                count = cur.rowcount
+                print(count, "Record inserted successfully into posting table")
+
+        cur.close()
+        disconnect(conn)
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
 
