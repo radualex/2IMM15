@@ -29,3 +29,14 @@ example for calling the youtube api to get data:
 ```
 python getdata.py --q="computer science tutorials" --location="38.61048,-121.44730" --location-radius="1000km"
 ```
+
+example for indexing: 
+```
+python index.py (--download : use first time in order to download nltk packages)
+```
+
+
+example for query processing:
+```
+python query.py --q "app"
+```
