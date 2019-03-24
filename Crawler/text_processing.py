@@ -6,6 +6,30 @@ from nltk.tokenize import RegexpTokenizer
 from nltk.stem.porter import PorterStemmer
 
 
+# if no operator in between two consecutive tokens which are not in the
+# 'operators' array then assume 'and' operator should be used
+def extract_operators_from_query(query, operators):
+    arr = []
+    tokens = tokenize_filter_punctuation(query)
+
+    i = 0
+
+    while(i < len(tokens) - 1):
+        if(tokens[i] in operators):
+            arr.append(tokens[i].lower())
+        else:
+            if tokens[i + 1] not in operators:
+                arr.append('and')
+        i += 1
+
+    return arr
+
+
+def remove_words_from_query(query, words):
+    filtered_query = [w for w in query if not w in words]
+    return filtered_query
+
+
 def download_stop_words():
     nltk.download("stopwords")
     nltk.download('punkt')
@@ -50,7 +74,8 @@ def stemming(word_tokens):
 
 
 def remove_only_numbers(word_tokens):
-    word_tokens = [re.sub(r'\b[0-9]+\b\s*', '', token) for token in word_tokens]
+    word_tokens = [re.sub(r'\b[0-9]+\b\s*', '', token)
+                   for token in word_tokens]
     return word_tokens
 
 

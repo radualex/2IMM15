@@ -33,3 +33,15 @@ CREATE TABLE Tag(
 	Value varchar(255) NOT NULL,
 	VideoId varchar(100) NOT NULL REFERENCES Video(Id) ON DELETE CASCADE
 );
+
+CREATE TABLE Word(
+	wordid SERIAL PRIMARY KEY,
+	word varchar(100),
+	frequency integer NULL
+);
+
+CREATE TABLE Posting(
+	wordid integer REFERENCES Word(wordid) ON DELETE CASCADE,
+	videoId varchar(100) REFERENCES Video(Id) ON DELETE CASCADE,
+	PRIMARY KEY(wordid,videoid)
+);
