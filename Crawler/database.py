@@ -219,6 +219,24 @@ def get_videos():
         print(error)
 
 
+def get_videos_complete():
+    try:
+        conn = connect()
+        cur = conn.cursor()
+
+        query = """SELECT * FROM video"""
+
+        cur.execute(query)
+        records = cur.fetchall()
+
+        cur.close()
+        disconnect(conn)
+
+        return records
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+
+
 def get_data_for_indexing(videoId):
     try:
         tags = set()
@@ -272,6 +290,35 @@ def populate_indexing_tables(dictionary):
 
         cur.close()
         disconnect(conn)
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+
+
+def get_data_for_query_processing():
+    try:
+        dict = {}
+        conn = connect()
+        cur = conn.cursor()
+
+        query = """SELECT * FROM word;"""
+        cur.execute(query)
+        conn.commit()
+        words = cur.fetchall()
+
+        for word in words:
+            id = word[0]
+            actual_word = word[1]
+            query = """SELECT videoId FROM posting WHERE wordId = %s"""
+            cur.execute(query, (id, ))
+            videoIds = cur.fetchall()
+            dict[actual_word] = []
+            for videoId in videoIds:
+                dict[actual_word].append(videoId[0])
+
+        cur.close()
+        disconnect(conn)
+
+        return dict
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
 
