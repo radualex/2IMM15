@@ -113,3 +113,19 @@ def extract_video_names_from_final_matrix(final_matrix, videos):
         i += 1
 
     return final_videos
+
+
+# convert the array of videos to json format string
+def jsonify(array):
+    jsonified = "{\"video_ids\":["
+    for item in array:
+        jsonified += "\""
+        jsonified += item
+        jsonified += "\""
+        jsonified += ","
+
+    jsonified = jsonified[:-1]
+    jsonified += "]"
+    jsonified += "}"
+
+    return jsonified

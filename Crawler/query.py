@@ -1,7 +1,7 @@
 import argparse
 
 from database import get_data_for_query_processing, get_videos, get_videos_complete
-from query_processing import split_query_into_words_and_operators, create_incidence_matrices, process_matrices, extract_video_names_from_final_matrix
+from query_processing import split_query_into_words_and_operators, create_incidence_matrices, process_matrices, extract_video_names_from_final_matrix, jsonify
 
 
 def main(query):
@@ -22,7 +22,7 @@ def main(query):
     final_matrix = process_matrices(matrices, operators)
 
     videos = extract_video_names_from_final_matrix(final_matrix, videoIds)
-    return videos
+    return jsonify(videos)
 
 
 if __name__ == '__main__':
