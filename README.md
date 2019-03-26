@@ -42,11 +42,11 @@ python query.py --q "app"
 ```
 
 
-###API
+### API
 
 An API exposing 1 endpoint has been added as well.
  
-Start the serve (http://localhost:3000)
+Start the server (http://localhost:3000)
 ```
 python server.py 
 ```
