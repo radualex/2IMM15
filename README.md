@@ -51,7 +51,7 @@ Start the server (http://localhost:3000)
 python server.py 
 ```
 
-Make GET request to http://localhost:3000/query/<query> to get a list of video ids according to the query.
+Make GET request to http://localhost:3000/query/[query] to get a list of video ids according to the query.
 
 Example of a request:
 ```
