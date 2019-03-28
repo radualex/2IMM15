@@ -18,6 +18,33 @@ def connect():
         print(error)
 
 
+def truncate_indexer_tables():
+    try:
+        conn = connect()
+        cur = conn.cursor()
+        query = """DELETE FROM word;"""
+
+        cur.execute(query)
+        conn.commit()
+        count = cur.rowcount
+
+        print(count, "Record deleted successfully (word).")
+
+        query = """DELETE FROM posting;"""
+
+        cur.execute(query)
+        conn.commit()
+        count = cur.rowcount
+
+        print(count, "Record deleted successfully (posting).")
+
+        cur.close()
+        disconnect(conn)
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+
+
 def truncate_all_tables():
     try:
         conn = connect()
