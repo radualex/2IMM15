@@ -1,11 +1,11 @@
 from configparser import ConfigParser
+import os
 
-
-def config(filename='config.ini', section='postgresql'):
+def config(filename='\\config.ini', section='postgresql'):
     # create a parser
     parser = ConfigParser()
     # read config file
-    parser.read(filename)
+    parser.read(os.path.dirname(__file__)+filename)
 
     # get section, default to postgresql
     db = {}
@@ -20,11 +20,11 @@ def config(filename='config.ini', section='postgresql'):
     return db
 
 
-def configYoutube(filename='config.ini', section='youtube'):
+def configYoutube(filename='\\config.ini', section='ytube'):
     # create a parser
     parser = ConfigParser()
     # read config file
-    parser.read(filename)
+    parser.read(os.path.dirname(__file__)+filename)
 
     # get section, default to postgresql
     youtube = {}
