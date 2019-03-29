@@ -2,7 +2,7 @@ import argparse
 
 from geolocation_search_import import youtube_search
 from googleapiclient.errors import HttpError
-from database import insert_video_table_data, insert_thumbnail_table_data, insert_statistics_table_data, insert_tag_table_data, get_count_video_table, truncate_all_tables
+from database import insert_video_table_data, insert_thumbnail_table_data, insert_statistics_table_data, insert_tag_table_data, get_count_video_table, truncate_all_tables, truncate_indexer_tables
 
 
 def call_youtube(args):
@@ -36,11 +36,16 @@ if __name__ == '__main__':
     parser.add_argument('--token', help='Page token', default=None)
     parser.add_argument(
         '--d', help='Truncate all tables', action='store_true')
+    parser.add_argument(
+        '--dindexer', help='Truncate all tables related to indexer',
+        action='store_true')
     args = parser.parse_args()
 
     try:
         if(args.d):
             truncate_all_tables()
+        elif(args.dindexer):
+            truncate_indexer_tables()
         else:
             dict = insert_all_data(args)
 

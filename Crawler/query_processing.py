@@ -16,9 +16,10 @@ def split_query_into_words_and_operators(query):
 def create_incidence_matrices(dict, tokens, videos):
     incidence_matrices = []
     for token in tokens:
+        print(token)
         incidence_matrix = [0] * len(videos)
         for keys, values in dict.items():
-            if token in keys:
+            if keys in token or token in keys:
                 for value in values:
                     index = videos.index(value)
                     incidence_matrix[index] = 1

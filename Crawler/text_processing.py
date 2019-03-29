@@ -1,5 +1,6 @@
 import nltk
 import re
+import string
 from nltk import sent_tokenize
 from nltk.corpus import stopwords
 from nltk.tokenize import RegexpTokenizer
@@ -46,12 +47,16 @@ def tokenize_filter_punctuation(sentence):
     return word_tokens
 
 
-def remove_nonalpha_and_stop_words(word_tokens):
-    words = [word for word in word_tokens if word.isalpha()]
+def remove_non_alpha(word_tokens):
+    word_tokens = [re.sub(r'[^a-zA-Z]', "", token)
+                   for token in word_tokens]
+    return word_tokens
 
+
+def remove_stop_words(word_tokens):
     stop_words = set(stopwords.words('english'))
 
-    filtered_sentence = [w for w in words if not w in stop_words]
+    filtered_sentence = [w for w in word_tokens if not w in stop_words]
 
     filtered_sentence = []
 
@@ -83,15 +88,28 @@ def remove_empty_space(word_tokens):
     return filter(None, word_tokens)
 
 
+def remove_figures_from_words(word_tokens):
+    word_tokens = [re.sub(r'\d+', '', token) for token in word_tokens]
+    return word_tokens
+
+
+def remove_1_char_words(word_tokens):
+    word_tokens = [re.sub(r'\b\w{1,3}\b', '', token) for token in word_tokens]
+    return word_tokens
+
+
 def process_text(text):
     sentences = split_into_senteces(text)
     tokens = set()
     for sentence in sentences:
         word_tokens = tokenize_filter_punctuation(sentence)
-        word_tokens = remove_nonalpha_and_stop_words(word_tokens)
+        word_tokens = remove_stop_words(word_tokens)
+        word_tokens = remove_non_alpha(word_tokens)
         word_tokens = normalize(word_tokens)
         word_tokens = stemming(word_tokens)
         word_tokens = remove_only_numbers(word_tokens)
+        word_tokens = remove_figures_from_words(word_tokens)
+        word_tokens = remove_1_char_words(word_tokens)
         word_tokens = remove_empty_space(word_tokens)
         tokens.update(word_tokens)
 
