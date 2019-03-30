@@ -53,6 +53,10 @@ def remove_non_alpha(word_tokens):
     return word_tokens
 
 
+def remove_non_alpha_from_string(string):
+    return re.sub(r'\W+', '', string)
+
+
 def remove_stop_words(word_tokens):
     stop_words = set(stopwords.words('english'))
 
