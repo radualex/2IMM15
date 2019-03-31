@@ -20,15 +20,18 @@ def main(query):
     matrices = create_incidence_matrices(dict, tokens, videoIds)
 
     final_matrix = process_matrices(matrices, operators)
+    print(final_matrix)
+    videosComplete = get_videos_complete()
 
-    videos = extract_video_names_from_final_matrix(final_matrix, videoIds)
+    videos = extract_video_names_from_final_matrix(final_matrix, videosComplete)
+
     return jsonify(videos)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--q', help='query', default=None)
+        '--query', help='query', default=None)
     args = parser.parse_args()
 
-    print(main(args.q))
+    print(main(args))
