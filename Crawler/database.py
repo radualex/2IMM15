@@ -357,3 +357,25 @@ def disconnect(conn):
             print('Database connection closed.')
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
+
+
+def select_video_ids():
+    try:
+        conn = connect()
+        cur = conn.cursor()
+
+        query = """SELECT id FROM video"""
+
+        cur.execute(query, (id, ))
+        records = cur.fetchall()
+
+        ids = []
+        for record in records:
+            ids.append(record[0])
+
+        cur.close()
+        disconnect(conn)
+
+        return ids
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
