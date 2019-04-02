@@ -381,3 +381,24 @@ def select_video_ids():
         return ids
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
+
+
+def get_statistics(id):
+    try:
+        conn = connect()
+        cur = conn.cursor()
+
+        query = """SELECT viewcount, likecount, dislikecount, inserted_at FROM statistics WHERE videoid = %s ORDER BY inserted_at"""
+
+        cur.execute(query, (id, ))
+        records = cur.fetchall()
+
+        cur.close()
+        disconnect(conn)
+
+        print("test:")
+        print(records)
+
+        return records
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
