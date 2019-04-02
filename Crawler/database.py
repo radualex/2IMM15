@@ -79,6 +79,8 @@ def truncate_all_tables():
         conn.commit()
         count = cur.rowcount
 
+        truncate_indexer_tables()
+        
         cur.close()
         disconnect(conn)
 

@@ -23,6 +23,23 @@ def insert_all_data(args):
     return dict
 
 
+def main(args):
+    try:
+        if(args.d):
+            truncate_all_tables()
+        elif(args.dindexer):
+            truncate_indexer_tables()
+        else:
+            dict = insert_all_data(args)
+
+            while 'nextPageToken' in dict and get_count_video_table() < 200:
+                args.token = dict["nextPageToken"]
+                dict = insert_all_data(args)
+
+    except HttpError as e:
+        print('An HTTP error %d occurred:\n%s' % (e.resp.status, e.content))
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--q', help='Search term',
@@ -41,17 +58,4 @@ if __name__ == '__main__':
         action='store_true')
     args = parser.parse_args()
 
-    try:
-        if(args.d):
-            truncate_all_tables()
-        elif(args.dindexer):
-            truncate_indexer_tables()
-        else:
-            dict = insert_all_data(args)
-
-            while 'nextPageToken' in dict and get_count_video_table() < 200:
-                args.token = dict["nextPageToken"]
-                dict = insert_all_data(args)
-
-    except HttpError as e:
-        print('An HTTP error %d occurred:\n%s' % (e.resp.status, e.content))
+    main(args)
