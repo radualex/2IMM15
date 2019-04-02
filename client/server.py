@@ -1,27 +1,26 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 import pymysql
+import requests as req
+import json
 
 app = Flask(__name__)
 
 
 class Entry:
-    def __init__(self, title, description, views, likes, dislikes, date):
+    def __init__(self, title, description, views, likes, dislikes, date, id, published, channelTitle, channelId, url, width, height):
         self.title = title
         self.description = description
         self.views = views
         self.likes = likes
         self.dislikes = dislikes
         self.date = date
-
-
-def generate_entries(amount):
-    amount += 1
-    entries = []
-    for i in range(1, amount):
-        entry = Entry(10 * "Title " + str(i), "Entry description " + str(i), i * 100000, i * 100, i * 10, "1/" + str(i) + "/2019")
-        entries.append(entry)
-
-    return entries
+        self.id = id
+        self.published = published
+        self.channelTitle = channelTitle
+        self.channelId = channelId
+        self.url = url
+        self.width = width
+        self.height = height
 
 
 def query_entries(query, entries):
@@ -34,6 +33,28 @@ def query_entries(query, entries):
     return result
 
 
+def parse_videos(videos):
+    videosjson = json.loads(videos)
+    result = []
+
+    if 'videos' in videosjson:
+        for video in videosjson['videos']:
+            entry = Entry(str(video['title']), str(video['description']), str(video['viewCount']), str(video['likeCount']),
+                          str(video['dislikeCount']), str(video['publishedAt']), str(video['id']),
+                          str(video['publishedAt']), str(video['channelTitle']), str(video['channelId']),
+                          str(video['url']), str(video['width']), str(video['height']))
+            result.append(entry)
+
+    return result
+
+
+def load_data(query):
+    url = 'http://localhost:3000/query/' + query
+    resp = req.get(url)
+
+    return resp.text
+
+
 class Database:
     def __init__(self):
         host = "127.0.0.1"
@@ -44,32 +65,28 @@ class Database:
                                    DictCursor)
         self.cur = self.con.cursor()
 
-    def list_employees(self, limit=50):
-        self.cur.execute("SELECT first_name, last_name, gender FROM employees LIMIT " + str(limit))
-        result = self.cur.fetchall()
-        return result
-
 
 @app.route('/')
+def fakeindex():
+    return redirect(url_for('index'))
+
+
+@app.route('/query/')
 def index():
-    entries = generate_entries(10)
+    entries = []
 
     return render_template('base.html', entries=entries, content_type='application/json')
 
 
-@app.route('/<query>')
+@app.route('/query/<query>')
 def query(query):
-    entries = generate_entries(100)
-    entries = query_entries(query, entries)
+    videos = load_data(query)
+
+    video_entries = parse_videos(videos)
+
+    entries = video_entries[:10]
 
     return render_template('base.html', entries=entries, query=query, content_type='application/json')
-
-
-@app.route('/test/<limit>')
-def employees(limit):
-    db = Database()
-    res = db.list_employees(limit)
-    return render_template('employees.html', result=res, content_type='application/json')
 
 
 if __name__ == '__main__':

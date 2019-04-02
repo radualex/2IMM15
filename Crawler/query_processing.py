@@ -129,6 +129,8 @@ def jsonify(array):
     else:
         jsonified = "{\"videos\":["
         for item in array:
+            print("item:")
+            print(item)
             jsonified += "{"
             jsonified += "\"id\":\"" + item[0] + "\","
             jsonified += "\"title\":\"" + item[1].replace("\"", "'") + "\","
@@ -141,7 +143,13 @@ def jsonify(array):
             jsonified += "\"duration\":\"" + item[4] + "\","
             jsonified += "\"channelId\":\"" + item[5] + "\","
             jsonified += "\"channelTitle\":\"" + \
-                item[6].replace("\"", "'") + "\""
+                item[6].replace("\"", "'") + "\","
+            jsonified += "\"viewCount\":\"" + str(item[7]) + "\","
+            jsonified += "\"likeCount\":\"" + str(item[8]) + "\","
+            jsonified += "\"dislikeCount\":\"" + str(item[9]) + "\","
+            jsonified += "\"url\":\"" + str(item[10]) + "\","
+            jsonified += "\"width\":\"" + str(item[11]) + "\","
+            jsonified += "\"height\":\"" + str(item[12]) + "\""
             jsonified += "}"
             jsonified += ","
 

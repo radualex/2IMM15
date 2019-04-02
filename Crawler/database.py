@@ -253,7 +253,16 @@ def get_videos_complete():
         conn = connect()
         cur = conn.cursor()
 
-        query = """SELECT * FROM video"""
+        #query = """SELECT * FROM video"""
+        query = """with summary as (
+	select s.viewcount, s.likecount, s.dislikecount, s.inserted_at, s.videoid, ROW_NUMBER() OVER(PARTITION BY s.videoid ORDER BY s.inserted_at DESC) as rk
+		from statistics s
+)
+select video.*, s.viewcount, s.likecount, s.dislikecount, thumbnail.url, thumbnail.width, thumbnail.height
+from video
+left join summary s on video.id = s.videoid
+left join thumbnail on video.id = thumbnail.videoid
+WHERE s.rk = 1"""
 
         cur.execute(query)
         records = cur.fetchall()
