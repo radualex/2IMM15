@@ -25,7 +25,7 @@ def youtube_search(q="computer science tutorial", max_results=50,
 
     params = configYoutube()
 
-    DEVELOPER_KEY = params['developerkey']
+    DEVELOPER_KEY = params['developerKey']
     YOUTUBE_API_SERVICE_NAME = params["youtube_api_service_name"]
     YOUTUBE_API_VERSION = params["youtube_api_version"]
 

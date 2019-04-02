@@ -23,9 +23,9 @@ def youtube_search_ids(ids):
 
     params = configYoutube()
 
-    DEVELOPER_KEY = params['developerkey']
-    YOUTUBE_API_SERVICE_NAME = params["youtube_api_service_name"]
-    YOUTUBE_API_VERSION = params["youtube_api_version"]
+    DEVELOPER_KEY = params['developerKey']
+    YOUTUBE_API_SERVICE_NAME = params['youtube_api_service_name']
+    YOUTUBE_API_VERSION = params['youtube_api_version']
 
     youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
                     developerKey=DEVELOPER_KEY)

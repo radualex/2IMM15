@@ -25,7 +25,8 @@ CREATE TABLE Statistics(
 	ViewCount integer NULL,
 	LikeCount integer NULL,
 	DislikeCount integer NULL,
-	VideoId varchar(100) NOT NULL REFERENCES Video(Id) ON DELETE CASCADE
+	VideoId varchar(100) NOT NULL REFERENCES Video(Id) ON DELETE CASCADE,
+	inserted_at TIMESTAMP without time zone DEFAULT timestamp 'now( )' NOT NULL
 );
 
 CREATE TABLE Tag(
