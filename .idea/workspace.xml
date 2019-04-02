@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fbbbbc47-5eab-4cec-9643-2835072387ea" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Crawler/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/Crawler/database.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Crawler/geolocation_search_import.py" beforeDir="false" afterPath="$PROJECT_DIR$/Crawler/geolocation_search_import.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,7 +33,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Crawler/getstatistics.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="360">
@@ -46,11 +45,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Crawler/geolocation_search_import.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="967">
-              <caret line="112" column="47" selection-start-line="112" selection-start-column="47" selection-end-line="112" selection-end-column="47" />
+            <state relative-caret-position="448">
+              <caret line="122" selection-start-line="122" selection-end-line="122" />
             </state>
           </provider>
         </entry>
@@ -68,7 +67,7 @@
         <entry file="file://$PROJECT_DIR$/Crawler/database.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="476">
-              <caret line="140" lean-forward="true" selection-start-line="140" selection-end-line="140" />
+              <caret line="142" lean-forward="true" selection-start-line="142" selection-end-line="142" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -93,10 +92,10 @@
       <list>
         <option value="$PROJECT_DIR$/Crawler/config.ini" />
         <option value="$PROJECT_DIR$/Crawler/statistic_search_inport.py" />
-        <option value="$PROJECT_DIR$/Crawler/geolocation_search_import.py" />
         <option value="$PROJECT_DIR$/Crawler/statistic_search_import.py" />
         <option value="$PROJECT_DIR$/Crawler/database.py" />
         <option value="$PROJECT_DIR$/Crawler/getstatistics.py" />
+        <option value="$PROJECT_DIR$/Crawler/geolocation_search_import.py" />
       </list>
     </option>
   </component>
@@ -147,6 +146,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
@@ -175,10 +175,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1363" y="-1" width="1926" height="1084" extended-state="6" />
+    <frame x="-3" y="-1" width="1372" height="745" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17659463" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24944155" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -259,17 +259,10 @@
     <entry file="file://$PROJECT_DIR$/Crawler/database.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
-          <caret line="140" lean-forward="true" selection-start-line="140" selection-end-line="140" />
+          <caret line="142" lean-forward="true" selection-start-line="142" selection-end-line="142" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Crawler/geolocation_search_import.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="967">
-          <caret line="112" column="47" selection-start-line="112" selection-start-column="47" selection-end-line="112" selection-end-column="47" />
         </state>
       </provider>
     </entry>
@@ -287,6 +280,13 @@
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Crawler/geolocation_search_import.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="122" selection-start-line="122" selection-end-line="122" />
         </state>
       </provider>
     </entry>

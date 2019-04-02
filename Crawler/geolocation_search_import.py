@@ -121,30 +121,4 @@ def youtube_search(q="computer science tutorial", max_results=50,
     if 'nextPageToken' in search_response:
         dictionary['nextPageToken'] = search_response['nextPageToken']
 
-
-    print("EXTRA:")
-    search_videos = []
-
-    # Merge video ids
-    for search_result in search_response.get('items', []):
-        search_videos.append(search_result['id']['videoId'])
-    video_ids = ','.join(search_videos)
-
-    # Call the videos.list method to retrieve location details for each video.
-    video_response = youtube.videos().list(
-        id=video_ids,
-        part='snippet, recordingDetails, statistics'
-    ).execute()
-
-    videos = []
-
-    # Add each result to the list, and then display the list of matching videos.
-    for video_result in video_response.get('items', []):
-        videos.append('%s, %s %s, %s' % (video_result['snippet']['title'],
-                                        video_result['statistics']['viewCount'],
-                                         video_result['statistics']['likeCount'],
-                                             video_result['statistics']['dislikeCount']))
-
-    print('\n'.join(videos))
-
     return dictionary
