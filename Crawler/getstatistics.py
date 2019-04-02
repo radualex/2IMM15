@@ -1,6 +1,5 @@
 import argparse
 
-from geolocation_search_import import youtube_search
 from statistic_search_import import youtube_search_ids
 from googleapiclient.errors import HttpError
 from database import insert_video_table_data, insert_thumbnail_table_data, insert_statistics_table_data, insert_tag_table_data, get_count_video_table, truncate_all_tables, truncate_indexer_tables, select_video_ids

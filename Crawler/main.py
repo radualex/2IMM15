@@ -2,6 +2,7 @@ import argparse
 from getdata import main as crawl
 from index import main as indexing
 from query import main as querying
+from getstatistics import load_statistics
 
 
 # pass q = search term for youtube, location = x,y lang, lat coords, location-radius= Xkm, max-results=[1,50] for crawling
@@ -14,6 +15,8 @@ def main(args):
         indexing(args)
     if(args.query):
         print(querying(args.query))
+    if(args.statistics):
+        load_statistics()
 
 
 if __name__ == '__main__':
@@ -40,6 +43,9 @@ if __name__ == '__main__':
 
     parser.add_argument(
         '--query', help='query', default=None)
+
+    parser.add_argument(
+        '--statistics', help='Statistics', action='store_true')
     args = parser.parse_args()
 
     main(args)
