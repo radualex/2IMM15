@@ -3,7 +3,8 @@ import argparse
 from database import get_data_for_query_processing, get_videos, get_videos_complete, get_statistics
 from query_processing import split_query_into_words_and_operators, create_incidence_matrices, process_matrices, extract_video_names_from_final_matrix, jsonify
 from datetime import datetime
-
+import time
+import datetime
 
 def main(query):
     if(query is None):
@@ -35,17 +36,17 @@ def statistics_by_id(id):
 
     statistics = get_statistics(id)
 
-    json = "{\"statistics\":["
+    json = "["
     for statistic in statistics:
         json += "{"
         json += "\"viewCount\":\"" + str(statistic[0]) + "\","
         json += "\"likeCount\":\"" + str(statistic[1]) + "\","
         json += "\"dislikeCount\":\"" + str(statistic[2]) + "\","
-        json += "\"inserted_at\":\"" + statistic[3].strftime('%Y-%m-%dT%H:%M:%S.%f%z') + "\""
+        json += "\"inserted_at\":\"" + str(time.mktime(statistic[3].timetuple())) + "\""
         json += "},"
 
     json = json[:-1]
-    json += "]}"
+    json += "]"
 
     return json
 

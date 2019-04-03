@@ -6,6 +6,7 @@
         <title>CSTut</title>
         <link href="{{ url_for('static', filename = 'css/lib/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ url_for('static', filename = 'css/lib/font-awesome.min.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename = 'css/lib/multiline.css') }}" rel="stylesheet">
         <link href="{{ url_for('static', filename = 'css/main.css') }}" rel="stylesheet">
     </head>
   <body>
@@ -30,6 +31,11 @@
             </div>
 
             <div class="container">
+                        <script src="{{ url_for('static', filename = 'js/lib/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename = 'js/main.js') }}"></script>
+        <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+        <script src="{{ url_for('static', filename = 'js/lib/multiline.js') }}"></script>
+        <script src="{{ url_for('static', filename = 'js/stats.js') }}"></script>
         {% if entries %}
             {% for entry in entries %}
                 <div class="row">
@@ -56,8 +62,10 @@
                             <li>Published at: {{ entry.published }}</li>
                             <li>Channel: <a target="_blank" href="https://www.youtube.com/channel/{{ entry.channelId }}">{{ entry.channelTitle }}</a></li>
                         </ul>
+                        <div class="chart-wrapper" id="chart-{{ entry.id }}"></div>
                     </div>
                 </div>
+                <script>createGraph({{ entry.statistics }}, "{{ entry.id }}");</script>
             {% endfor %}
         {% else %}
                 <div class="row">
@@ -73,7 +81,5 @@
         <footer class="container">
             <p>&copy; Technische universiteit Eindhoven 2019</p>
         </footer>
-        <script src="{{ url_for('static', filename = 'js/lib/jquery.min.js') }}"></script>
-        <script src="{{ url_for('static', filename = 'js/main.js') }}"></script>
     </body>
 </html>

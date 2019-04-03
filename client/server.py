@@ -1,7 +1,8 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, jsonify
 import pymysql
 import requests as req
 import json
+import re
 
 app = Flask(__name__)
 
@@ -21,16 +22,18 @@ class Entry:
         self.url = url
         self.width = width
         self.height = height
+        self.statistics = []
 
 
-def query_entries(query, entries):
-    result = []
-
+def load_statistics(entries):
     for entry in entries:
-        if query in entry.title or query in entry.description:
-            result.append(entry)
+        url = 'http://localhost:3000/statistics/' + entry.id
+        resp = req.get(url)
+        entry.statistics = resp.text.replace('"', '')
+        print("response:")
+        print(entry.statistics)
 
-    return result
+    return entries
 
 
 def parse_videos(videos):
@@ -85,6 +88,8 @@ def query(query):
     video_entries = parse_videos(videos)
 
     entries = video_entries[:10]
+
+    entries = load_statistics(entries)
 
     return render_template('base.html', entries=entries, query=query, content_type='application/json')
 
