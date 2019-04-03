@@ -8,8 +8,8 @@ from basewords import get_weighted_words
 #order by most times found
 #take most found video and add 2 to the other videos that share author
 #return top 5
-queryDict = dict()
-queriedIDs = dict()
+queryDict = {}
+queriedIDs = {}
 videos = {}
 weighed_words = get_weighted_words()
 #get words from query
@@ -45,3 +45,4 @@ for x in videos
     iter =+ 1
     if iter = 5
         break
+return answers
