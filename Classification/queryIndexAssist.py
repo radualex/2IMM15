@@ -1,6 +1,6 @@
 import argparse
 from database import get_data_for_query_processing, get_video_complete
-from basewords import dictionary
+from basewords import get_weighted_words
 #get the words searched for
 #match with indexed database
 #order from least occuring to most occuring words
@@ -11,7 +11,7 @@ from basewords import dictionary
 queryDict = dict()
 queriedIDs = dict()
 videos = {}
-weighed_words = dictionary
+weighed_words = get_weighted_words()
 #get words from query
 
 #give words their occurrence
