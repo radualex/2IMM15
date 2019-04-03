@@ -356,6 +356,24 @@ def populate_indexing_tables(dictionary):
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
 
+def get_data_for_baseword_weighing():
+    try:
+        dict = {}
+        conn = connect()
+        cur = conn.cursor()
+
+        query = """SELECT word, frequency FROM word;"""
+        cur.execute(query)
+        conn.commit()
+        dict = cur.fetchall()
+
+
+        cur.close()
+        disconnect(conn)
+
+        return dict
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
 
 def get_data_for_query_processing():
     try:

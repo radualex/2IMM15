@@ -1,6 +1,6 @@
 import argparse
 from database import get_data_for_query_processing, get_video_complete
-
+from basewords import dictionary
 #get the words searched for
 #match with indexed database
 #order from least occuring to most occuring words
@@ -11,18 +11,19 @@ from database import get_data_for_query_processing, get_video_complete
 queryDict = dict()
 queriedIDs = dict()
 videos = {}
+weighed_words = dictionary
 #get words from query
 
 #give words their occurrence
 for key in queryDict:
-    if key in dictionary.keys():
-        queryDict[key] = dictionary[key]
+    if key in weighed_words.keys():
+        queryDict[key] = weighed_words[key]
 
 dict = get_data_for_query_processing()
 
 keyFreq = 0 #how frequent the current key is
 for key in sorted (queryDict):
-    keyFreq =+
+    keyFreq =+ 1
     for vidID in dict[key]
         queriedIDs[vidID] =+ keyFreq
 
