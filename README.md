@@ -57,3 +57,16 @@ Example of a request:
 ```
 GET http://localhost:3000/query/"app or facebook" 
 ```
+
+### Main
+The Schema.sql file from 'Crawler' folder has to be imported in postgreSQL first as this is the schema we use for the system.
+
+In the 'Crawler' folder, a main.py file exists. This can be used to perform the crawling and indexing as these functionalities are not present in the frontend. Therefore,
+
+```
+python main.py --q=<search query for youtube> --location=<geolocation> --location-radius=<radius in km> --i
+```
+
+will retrieve the raw data based on the query and will create the indexer.
+
+After that, the server.py in 'Crawler' folder can be called to start the backend and the server.py in 'client' folder can be called to start the frontend.
