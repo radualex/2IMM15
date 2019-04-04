@@ -6,6 +6,7 @@ from datetime import datetime
 import time
 import datetime
 
+
 def main(query):
     if(query is None):
         return "Query is empty"
@@ -22,12 +23,13 @@ def main(query):
     matrices = create_incidence_matrices(dict, tokens, videoIds)
 
     final_matrix = process_matrices(matrices, operators)
-    print(final_matrix)
-    videosComplete = get_videos_complete()
+    # print(final_matrix)
+    # videosComplete = get_videos_complete()
 
-    videos = extract_video_names_from_final_matrix(final_matrix, videosComplete)
+    videos = extract_video_names_from_final_matrix(final_matrix, videoIds)
 
-    return jsonify(videos)
+    # return jsonify(videos)
+    return videos
 
 
 def statistics_by_id(id):
@@ -49,6 +51,7 @@ def statistics_by_id(id):
     json += "]"
 
     return json
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

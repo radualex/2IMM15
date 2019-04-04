@@ -4,13 +4,13 @@ import os
 
 def config(filename='\\config.ini', section='postgresql'):
 
-    db = {}
-    db['host'] = '127.0.0.1'
-    db['database'] = 'youtube'
-    db['user'] = 'postgres'
-    db['password'] = 'postgres'
+    # db = {}
+    # db['host'] = '127.0.0.1'
+    # db['database'] = 'youtube'
+    # db['user'] = 'postgres'
+    # db['password'] = 'postgres'
 
-    return db
+    # return db
 
     # create a parser
     parser = ConfigParser()
